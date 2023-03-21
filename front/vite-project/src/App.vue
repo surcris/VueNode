@@ -1,21 +1,24 @@
 <template>
   <div id="app">
-    <Dashboard v-if="settings == true" />
+    <!-- <Dashboard v-if="settings == true" /> -->
+    {{ userData.data["-NQ2LTTEHzCg0if-ASjW"] }}
   </div>
 </template>
 
 <script>
 // import 'bootstrap/dist/css/bootstrap.css'
 // import 'bootstrap-vue/dist/bootstrap-vue.css'
-import Dashboard from './components/Dashboard.vue'
+//import Dashboard from './components/Dashboard.vue'
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
-    Dashboard
+    // Dashboard
   },
   data() {
     return {
-      settings: false
+      settings: false,
+      userData:{}
     }
   },
   mounted() {
@@ -24,6 +27,9 @@ export default {
   },
   setup() {
     console.log("I am in setup!!!")
+  },
+  async created(){
+    this.userData = await axios.get('http://localhost:3000/users')
   }
 }
 </script>

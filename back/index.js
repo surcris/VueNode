@@ -4,26 +4,28 @@ import express from 'express';
 //const {firebase} = require('./firebase')
 import db from "./firebase.js";
 import bodyParser from 'body-parser';
+import cors from 'cors';
 // import firebase from 'firebase';
 
 const app = express();
-app.use(bodyParser.json());
-app.use(express.static(process.cwd() + '/my-app/'));
+app.use(cors());
+
 
 // Récupération des données des utilisateurs à partir de Firebase
-app.get('api/users', (req, res) => {
+app.get('/users', (req, res) => {
 
   db.ref('joueur').on('value', (snapshot) => {
     const data = snapshot.val();
-    console.log(data);
+    //console.log(data);
+    res.send(data)
     
   });
 
 });
 
-app.get('/', (req,res) => {
-  res.sendFile(process.cwd() + '/my-app/index.html');
-});
+// app.get('/', (req,res) => {
+//   res.sendFile(process.cwd() + '/my-app/index.html');
+// });
 // Démarrage du serveur
 app.listen(3000, () => {
   console.log('Serveur démarré sur le port 3000');
